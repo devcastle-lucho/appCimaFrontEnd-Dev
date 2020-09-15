@@ -24,7 +24,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     wheelSpeed: 2,
     wheelPropagation: true
 };
-
 @NgModule({
     declarations: [
         AppComponent,
