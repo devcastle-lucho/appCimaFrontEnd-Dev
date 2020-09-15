@@ -1,0 +1,49 @@
+<!----------------------
+  Modal (NgbdModalBasicComponent)
+---------------------->
+<form  [formGroup]="formPE" (ngSubmit)="guardar()">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Plan estudios</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body px-4 pt-3">
+    <div class="form-group d-flex">
+      <label for="areacurricular" class="font-weight-bold col-3">Area curricular</label>
+      <div class="d-flex flex-column col-9">
+        <ng-select [items]="areasAsignatura$ | async"
+          formControlName="areaasignatura"
+          bindLabel="descripcion"
+          autofocus
+          bindValue="id"
+          class="px-0">
+        </ng-select>
+        <small *ngIf="areaCurricularNoValido" class="text-danger font-italic">
+          Seleccione area curricular
+        </small>
+      </div>
+
+      <!-- [(ngModel)]="selectedAreaAsignaturaId" -->
+    </div>
+    <div class="form-group d-flex">
+      <label for="horas" class="font-weight-bold col-3">Horas</label>
+      <div class="d-flex flex-column  col-4">
+        <input type="text" class="form-control" name="horas"
+        formControlName="horas"
+        placeholder="">
+        <div *ngIf="horasNoValido">
+          <small *ngIf="f.horas?.errors.required" class="text-danger font-italic">
+            Ingrese cantidad de horas
+          </small>
+          <small *ngIf="f.horas?.errors.pattern" class="text-danger font-italic">
+            Horas deben ser números
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit"  class="btn btn-outline-dark">Guardar</button>
+  </div>
+</form>

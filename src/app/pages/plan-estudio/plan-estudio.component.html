@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">
+          Mantenimiento
+        </h3>
+        <div class="mt-2">
+          <div class="row">
+            <div class="col-4">
+              <!-- <label>Año lectivo</label> -->
+              <select  [(ngModel)]="selectedAnioLectivo" (change)="cambioAnioLectivo()" name="aniolectivo" class="form-control">
+                <option  selected value="undefined">Selecciona año lectivo</option>
+                <option *ngFor="let aniolectivo of lAnioLectivo" [ngValue]="aniolectivo">
+                    {{aniolectivo.descripcion}}
+                </option>
+              </select>
+            </div>
+            <div class="col-4">
+              <!-- <label>Grado</label> -->
+              <select name="grado" class="form-control" [(ngModel)]="selectedIdGrado" (change)="listar()">
+                <option value="0" [ngValue]="0">Selecciona grado</option>
+                <option *ngFor="let grado of lGrado" [value]="grado.id">
+                    {{grado.descripcion}}
+                </option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-outline-primary"  (click)="open()">Nuevo</button>
+          </div>
+
+          <div class="row animated fadeIn text-center mt-4" *ngIf="cargando">
+            <div class="col-sm-12">
+              <div class="alert alert-warning" role="alert">
+                <strong>Cargando</strong>
+                <br>
+                <i class="fa fa-refresh fa-spin fa-2x" aria-hidden="true"></i>
+                <br>
+                <span>Espere por favor</span>
+              </div>
+            </div>
+          </div>
+          <table class="table table-striped mt-3" *ngIf="!cargando">
+            <thead>
+            <tr>
+              <th scope="col">Año Lectivo</th>
+              <th scope="col">Grado</th>
+              <th scope="col">Area Curricular</th>
+              <th scope="col">Curso</th>
+              <th scope="col">Horas</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pe of lista">
+              <td  scope="row">{{pe.anioLectivo?.descripcion | titlecase}}</td>
+              <td>{{pe.grado?.descripcion}}</td>
+              <td>{{pe.areaAsignatura?.areaCurricular?.descripcion}}</td>
+              <td>{{pe.areaAsignatura?.asignatura?.descripcion}}</td>
+              <td>{{pe.horas}}</td>
+              <td></td>
+              <td><button type="button" class="btn btn-outline-dark  btn-sm"  (click)="editar(pe)"><i class="fa fa-edit"></i></button></td>
+              <td><button type="button" class="btn btn-outline-danger  btn-sm"  (click)="eliminar(pe.id)"><i class="fa fa-times"></i></button></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalguardar let-modal>
+  <app-modal-guardar></app-modal-guardar>
+</ng-template>
+
